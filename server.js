@@ -25,8 +25,13 @@ const server = http.createServer((req, res)=>{
         homepage(res);
     }
 
-    if (req.url == "/login") {
+    else if (req.url == "/login") {
         loginPage(res);
+    }
+
+    else {
+        res.write(`Cannot GET ${req.url}`);
+        res.end();
     }
 })
 
