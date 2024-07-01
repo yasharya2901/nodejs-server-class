@@ -1,12 +1,15 @@
 const http = require('http');
+const fs = require('fs')
 
 
 const homepage = (res) => {
+    const file = fs.readFileSync('index.html', 'utf8', (err)=> {
+        if(err) throw err;
+        console.log("Index.html is served");
+    })
     res.setHeader('Content-Type', 'text/html');
 
-    res.write("<html><head><title>My First Backend Request</title></head>");
-    res.write("<body><h1>Hello, World!</h1></body>");
-    res.write("</html>");
+    res.write(file);
     res.end();
 }
 
