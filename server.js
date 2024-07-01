@@ -3,10 +3,7 @@ const fs = require('fs')
 
 
 const homepage = (res) => {
-    const file = fs.readFileSync('index.html', 'utf8', (err)=> {
-        if(err) throw err;
-        console.log("Index.html is served");
-    })
+    const file = fs.readFileSync('index.html', 'utf8')
     res.setHeader('Content-Type', 'text/html');
 
     res.write(file);
