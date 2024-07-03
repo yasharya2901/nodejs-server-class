@@ -1,4 +1,6 @@
 const express = require('express');
+const {getCourses, addCourse} = require('./read_write');
+
 
 const app = express();
 
@@ -13,19 +15,20 @@ app.use(express.json());
 // Middleware to parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/courses', (req, res) => {
+app.get('/courses', async (req, res) => {
     // res.send('Hello World');
-    res.json(courses);
+    try {
+        const courses = await getCourses();
+        res.json(courses);
+    } catch (error) {
+        console.log(error);
+    }
 });
-
-app.post('/courses', (req, res) => {
-    const course = {
-        id: courses.length + 1,
-        name: req.body.name
-    };
-    courses.push(course);
-    console.log(courses);
-    res.json(course);
+    
+app.post('/courses', async (req, res) => {
+    const course = req.body;
+    const data = await addCourse(course);
+    res.json(data);
 });
 
 
